@@ -9,8 +9,5 @@
         <module name="Inventory" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Inventory" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

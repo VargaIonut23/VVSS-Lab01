@@ -37,6 +37,10 @@ public class Product {
         this.min = min;
         this.max = max;
     }
+
+    public Product() {
+
+    }
     
     // Getters
     public ObservableList<Part> getAssociatedParts() {
