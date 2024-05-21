@@ -4,7 +4,7 @@ package inventory.model;
 
 import java.util.Objects;
 
-public abstract class Part {
+public class Part {
 
     // Declare fields
     private int partId;

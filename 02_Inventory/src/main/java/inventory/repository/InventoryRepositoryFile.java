@@ -101,7 +101,7 @@ public class InventoryRepositoryFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        inventoryRepositoryInMemory.setAllProducts(listP);
+        inventoryRepositoryInMemory.setProducts(listP);
     }
 
     private Product getProductFromString(String line){
@@ -140,7 +140,7 @@ public class InventoryRepositoryFile {
 
         BufferedWriter bw = null;
         ObservableList<Part> parts= inventoryRepositoryInMemory.getAllParts();
-        ObservableList<Product> products= inventoryRepositoryInMemory.getAllProducts();
+        ObservableList<Product> products= inventoryRepositoryInMemory.getProducts();
 
         try {
             bw = new BufferedWriter(new FileWriter(file));
@@ -198,7 +198,7 @@ public class InventoryRepositoryFile {
     }
 
     public ObservableList<Product> getAllProducts(){
-        return inventoryRepositoryInMemory.getAllProducts();
+        return inventoryRepositoryInMemory.getProducts();
     }
 
     public Part lookupPart (String search){

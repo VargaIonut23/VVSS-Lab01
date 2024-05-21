@@ -9,13 +9,13 @@ import javafx.collections.ObservableList;
 public class InventoryRepositoryInMemory {
 
     // Declare fields
-    private ObservableList<Product> allProducts;
+    private ObservableList<Product> products;
     private ObservableList<Part> allParts;
     private int autoPartId;
     private int autoProductId;
 
     public InventoryRepositoryInMemory(){
-        this.allProducts = FXCollections.observableArrayList();
+        this.products = FXCollections.observableArrayList();
         this.allParts= FXCollections.observableArrayList();
         this.autoProductId=0;
         this.autoPartId=0;
@@ -27,7 +27,7 @@ public class InventoryRepositoryInMemory {
      * @param product
      */
     public void addProduct(Product product) {
-        allProducts.add(product);
+        products.add(product);
     }
 
     /**
@@ -35,25 +35,25 @@ public class InventoryRepositoryInMemory {
      * @param product
      */
     public void removeProduct(Product product) {
-        allProducts.remove(product);
+        products.remove(product);
     }
     /**
      * Accepts search parameter and if an ID or name matches input, that product is returned
-     * @param searchItem
+     * @param searchNameOrId
      * @return
      */
-    public Product lookupProduct(String searchItem) {
-        if(searchItem.equals("")){
+    public Product lookupProduct(String searchNameOrId) {
+        if(searchNameOrId.equals("")){
             return null;
         }
         boolean isFound = false;
-        for(Product p: allProducts) {
-            if(p.getName().contains(searchItem) || (p.getProductId()+"").equals(searchItem))
-                return p;
+        for(Product p: products) {
+            if(p.getName().contains(searchNameOrId) || (p.getProductId()+"").equals(searchNameOrId)) return p;
             isFound = true;
         }
-        if(!isFound) {
-            return new Product(0, null, 0.0, 0, 0, 0, null);
+        if(isFound == false) {
+            Product product = new Product(0, null, 0.0, 0, 0, 0, null);
+            return product;
         }
         return null;
     }
@@ -64,19 +64,19 @@ public class InventoryRepositoryInMemory {
      * @param product
      */
     public void updateProduct(int index, Product product) {
-        allProducts.set(index, product);
+        products.set(index, product);
     }
 
     /**
      * Getter for Product Observable List
      * @return
      */
-    public ObservableList<Product> getAllProducts() {
-        return allProducts;
+    public ObservableList<Product> getProducts() {
+        return products;
     }
 
-    public void setAllProducts(ObservableList<Product> list) {
-        allProducts =list;
+    public void setProducts(ObservableList<Product> list) {
+        products=list;
     }
 
     /**
