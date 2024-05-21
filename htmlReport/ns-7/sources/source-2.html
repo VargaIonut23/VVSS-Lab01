@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ProductValidator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">inventory.validator</a>
+</div>
+
+<h1>Coverage Summary for Class: ProductValidator (inventory.validator)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProductValidator</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package inventory.validator;
+&nbsp;
+&nbsp;import inventory.model.Product;
+&nbsp;
+<b class="nc">&nbsp;public class ProductValidator implements Validator&lt;Product&gt;{</b>
+&nbsp;    @Override
+&nbsp;    public void validate(Product entity) throws ValidationException {
+<b class="nc">&nbsp;        String errorMessage=&quot;&quot;;</b>
+<b class="nc">&nbsp;        double sumOfParts = 0.00;</b>
+<b class="nc">&nbsp;        if (entity.getAssociatedParts()!=null) {</b>
+<b class="nc">&nbsp;            for (int i = 0; i &lt; entity.getAssociatedParts().size(); i++) {</b>
+<b class="nc">&nbsp;                sumOfParts += entity.getAssociatedParts().get(i).getPrice();</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (entity.getAssociatedParts().isEmpty()) {</b>
+<b class="nc">&nbsp;                errorMessage += &quot;Product must contain at least 1 part. &quot;;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        if (entity.getName().equals(&quot;&quot;)) {</b>
+<b class="nc">&nbsp;            errorMessage += &quot;A name has not been entered. &quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (entity.getMin() &lt; 0) {</b>
+<b class="nc">&nbsp;            errorMessage += &quot;The inventory level must be greater than 0. &quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (entity.getPrice() &lt; 0.01) {</b>
+<b class="nc">&nbsp;            errorMessage += &quot;The price must be greater than $0. &quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (entity.getMin() &gt; entity.getMax()) {</b>
+<b class="nc">&nbsp;            errorMessage += &quot;The Min value must be less than the Max value. &quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(entity.getInStock() &lt; entity.getMin()) {</b>
+<b class="nc">&nbsp;            errorMessage += &quot;Inventory level is lower than minimum value. &quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(entity.getInStock() &gt; entity.getMax()) {</b>
+<b class="nc">&nbsp;            errorMessage += &quot;Inventory level is higher than the maximum value. &quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (sumOfParts &gt; entity.getPrice()) {</b>
+<b class="nc">&nbsp;            errorMessage += &quot;Product price must be greater than cost of parts. &quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(!errorMessage.equals(&quot;&quot;))</b>
+<b class="nc">&nbsp;            throw new ValidationException(errorMessage);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-15 18:46</div>
+</div>
+</body>
+</html>

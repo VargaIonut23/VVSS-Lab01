@@ -1,0 +1,365 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > MainScreenController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">inventory.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: MainScreenController (inventory.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainScreenController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/65)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;
+&nbsp;package inventory.controller;
+&nbsp;
+&nbsp;import inventory.model.Part;
+&nbsp;import inventory.model.Product;
+&nbsp;import inventory.service.InventoryService;
+&nbsp;import javafx.event.ActionEvent;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.fxml.FXMLLoader;
+&nbsp;import javafx.fxml.Initializable;
+&nbsp;import javafx.scene.Parent;
+&nbsp;import javafx.scene.Scene;
+&nbsp;import javafx.scene.control.*;
+&nbsp;import javafx.scene.control.Alert.AlertType;
+&nbsp;import javafx.scene.control.cell.PropertyValueFactory;
+&nbsp;import javafx.stage.Modality;
+&nbsp;import javafx.stage.Stage;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.net.URL;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.ResourceBundle;
+&nbsp;
+&nbsp;
+&nbsp;public class MainScreenController implements Initializable,Controller {
+&nbsp;    
+&nbsp;     // Declare fields
+&nbsp;    private Stage stage;
+&nbsp;    private Parent scene;
+&nbsp;    private static Part modifyPart;
+&nbsp;    private static Product modifyProduct;
+&nbsp;    private static int modifyPartIndex;
+&nbsp;    private static int modifyProductIndex;
+&nbsp;    
+&nbsp;    // Declare methods
+&nbsp;    public static int getModifyPartIndex() {
+<b class="nc">&nbsp;        return modifyPartIndex;</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    public static int getModifyProductIndex() {
+<b class="nc">&nbsp;        return modifyProductIndex;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private InventoryService service;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableView&lt;Part&gt; partsTableView;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableColumn&lt;Part, Integer&gt; partsIdCol;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableColumn&lt;Part, String&gt; partsNameCol;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableColumn&lt;Part, Integer&gt; partsInventoryCol;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableColumn&lt;Part, Double&gt; partsPriceCol;
+&nbsp;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableView&lt;Product&gt; productsTableView;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableColumn&lt;Product, Integer&gt; productsIdCol;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableColumn&lt;Product, String&gt; productsNameCol;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableColumn&lt;Product, Integer&gt; productsInventoryCol;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private TableColumn&lt;Product, Double&gt; productsPriceCol;
+&nbsp;    
+&nbsp;    @FXML
+&nbsp;    private TextField partsSearchTxt;
+&nbsp;    
+&nbsp;    @FXML
+&nbsp;    private TextField productsSearchTxt;
+&nbsp;
+<b class="nc">&nbsp;    public MainScreenController(){}</b>
+&nbsp;
+&nbsp;    public void setService(InventoryService service){
+<b class="nc">&nbsp;        this.service=service;</b>
+<b class="nc">&nbsp;        partsTableView.setItems(service.getAllParts());</b>
+<b class="nc">&nbsp;        productsTableView.setItems(service.getAllProducts());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Initializes the controller class and populate table views.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void initialize(URL url, ResourceBundle rb) {
+&nbsp;        // Populate parts table view
+<b class="nc">&nbsp;        partsIdCol.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;partId&quot;));</b>
+<b class="nc">&nbsp;        partsNameCol.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;name&quot;));</b>
+<b class="nc">&nbsp;        partsInventoryCol.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;inStock&quot;));</b>
+<b class="nc">&nbsp;        partsPriceCol.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;price&quot;));</b>
+&nbsp;
+&nbsp;        // Populate products table view
+<b class="nc">&nbsp;        productsIdCol.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;productId&quot;));</b>
+<b class="nc">&nbsp;        productsNameCol.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;name&quot;));</b>
+<b class="nc">&nbsp;        productsInventoryCol.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;inStock&quot;));</b>
+<b class="nc">&nbsp;        productsPriceCol.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;price&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method to add to button handler to switch to scene passed as source
+&nbsp;     * @param event
+&nbsp;     * @param source
+&nbsp;     * @throws IOException
+&nbsp;     */
+&nbsp;    private void displayScene(ActionEvent event, String source) throws IOException {
+<b class="nc">&nbsp;        stage = (Stage)((Button)event.getSource()).getScene().getWindow();</b>
+<b class="nc">&nbsp;        FXMLLoader loader= new FXMLLoader(getClass().getResource(source));</b>
+&nbsp;        //scene = FXMLLoader.load(getClass().getResource(source));
+<b class="nc">&nbsp;        scene = loader.load();</b>
+<b class="nc">&nbsp;        Controller ctrl=loader.getController();</b>
+<b class="nc">&nbsp;        ctrl.setService(service);</b>
+<b class="nc">&nbsp;        stage.setScene(new Scene(scene));</b>
+<b class="nc">&nbsp;        stage.show();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Ask user for confirmation before deleting selected part from list of parts.
+&nbsp;     * @param event 
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handleDeletePart(ActionEvent event) {
+<b class="nc">&nbsp;        Part part = partsTableView.getSelectionModel().getSelectedItem();</b>
+&nbsp;
+<b class="nc">&nbsp;        Alert alert = new Alert(AlertType.CONFIRMATION);</b>
+<b class="nc">&nbsp;        alert.initModality(Modality.NONE);</b>
+<b class="nc">&nbsp;        alert.setTitle(&quot;Confirmation&quot;);</b>
+<b class="nc">&nbsp;        alert.setHeaderText(&quot;Confirm Part Deletion?&quot;);</b>
+<b class="nc">&nbsp;        alert.setContentText(&quot;Are you sure you want to delete part &quot; + part.getName() + &quot; from parts?&quot;);</b>
+<b class="nc">&nbsp;        Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (result.get() == ButtonType.OK) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Part deleted.&quot;);</b>
+<b class="nc">&nbsp;            service.deletePart(part);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            System.out.println(&quot;Canceled part deletion.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Ask user for confirmation before deleting selected product from list of products.
+&nbsp;     * @param event 
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handleDeleteProduct(ActionEvent event) {
+<b class="nc">&nbsp;        Product product = productsTableView.getSelectionModel().getSelectedItem();</b>
+&nbsp;        
+<b class="nc">&nbsp;        Alert alert = new Alert(AlertType.CONFIRMATION);</b>
+<b class="nc">&nbsp;        alert.initModality(Modality.NONE);</b>
+<b class="nc">&nbsp;        alert.setTitle(&quot;Confirmation&quot;);</b>
+<b class="nc">&nbsp;        alert.setHeaderText(&quot;Confirm Product Deletion?&quot;);</b>
+<b class="nc">&nbsp;        alert.setContentText(&quot;Are you sure you want to delete product &quot; + product.getName() + &quot; from products?&quot;);</b>
+<b class="nc">&nbsp;        Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+&nbsp;        
+<b class="nc">&nbsp;        if (result.get() == ButtonType.OK) {</b>
+<b class="nc">&nbsp;            service.deleteProduct(product);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Product &quot; + product.getName() + &quot; was removed.&quot;);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            System.out.println(&quot;Product &quot; + product.getName() + &quot; was not removed.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Switch scene to Add Part
+&nbsp;     * @param event
+&nbsp;     * @throws IOException
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handleAddPart(ActionEvent event) throws IOException {
+<b class="nc">&nbsp;        displayScene(event, &quot;/fxml/AddPart.fxml&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Switch scene to Add Product
+&nbsp;     * @param event
+&nbsp;     * @throws IOException
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handleAddProduct(ActionEvent event) throws IOException {
+<b class="nc">&nbsp;        displayScene(event, &quot;/fxml/AddProduct.fxml&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Changes scene to Modify Part screen and passes values of selected part
+&nbsp;     * and its index
+&nbsp;     * @param event
+&nbsp;     * @throws IOException
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handleModifyPart(ActionEvent event) throws IOException {
+<b class="nc">&nbsp;        modifyPart = partsTableView.getSelectionModel().getSelectedItem();</b>
+<b class="nc">&nbsp;        modifyPartIndex = service.getAllParts().indexOf(modifyPart);</b>
+&nbsp;        
+<b class="nc">&nbsp;        displayScene(event, &quot;/fxml/ModifyPart.fxml&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Switch scene to Modify Product
+&nbsp;     * @param event
+&nbsp;     * @throws IOException
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handleModifyProduct(ActionEvent event) throws IOException {
+<b class="nc">&nbsp;        modifyProduct = productsTableView.getSelectionModel().getSelectedItem();</b>
+<b class="nc">&nbsp;        modifyProductIndex = service.getAllProducts().indexOf(modifyProduct);</b>
+&nbsp;        
+<b class="nc">&nbsp;        displayScene(event, &quot;/fxml/ModifyProduct.fxml&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Ask user for confirmation before exiting
+&nbsp;     * @param event 
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handleExit(ActionEvent event) {
+<b class="nc">&nbsp;        Alert alert = new Alert(AlertType.CONFIRMATION);</b>
+<b class="nc">&nbsp;        alert.initModality(Modality.NONE);</b>
+<b class="nc">&nbsp;        alert.setTitle(&quot;Confirmation Needed&quot;);</b>
+<b class="nc">&nbsp;        alert.setHeaderText(&quot;Confirm Exit&quot;);</b>
+<b class="nc">&nbsp;        alert.setContentText(&quot;Are you sure you want to exit?&quot;);</b>
+<b class="nc">&nbsp;        Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+<b class="nc">&nbsp;        if(result.get() == ButtonType.OK) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Ok selected. Program exited&quot;);</b>
+<b class="nc">&nbsp;            System.exit(0);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            System.out.println(&quot;Cancel clicked.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets search text and inputs into lookupPart method to highlight desired part
+&nbsp;     * @param event 
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handlePartsSearchBtn(ActionEvent event) {
+<b class="nc">&nbsp;        String x = partsSearchTxt.getText();</b>
+<b class="nc">&nbsp;        partsTableView.getSelectionModel().select(service.lookupPart(x));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets search text and inputs into lookupProduct method to highlight desired product
+&nbsp;     * @param event 
+&nbsp;     */
+&nbsp;    @FXML
+&nbsp;    void handleProductsSearchBtn(ActionEvent event) {
+<b class="nc">&nbsp;        String x = productsSearchTxt.getText();</b>
+<b class="nc">&nbsp;        productsTableView.getSelectionModel().select(service.lookupProduct(x));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-15 18:46</div>
+</div>
+</body>
+</html>
